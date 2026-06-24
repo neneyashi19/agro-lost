@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agro Perdido</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: "Courier New", monospace;
+    background-color: #0f1a14;
+    color: #d4ffd4;
+}
+
+/* Cabeçalho */
+header {
+    background: linear-gradient(#1f3d2b, #000);
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #3cff88;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+/* Menu */
+nav {
+    background-color: #13251b;
+    padding: 10px;
+    text-align: center;
+}
+
+nav a {
+    color: #8affb7;
+    margin: 0 15px;
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: #3cff88;
+}
+
+/* Conteúdo */
+section {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    background: rgba(0,0,0,0.6);
+    border: 1px solid #3cff88;
+    border-radius: 10px;
+}
+
+/* Cards */
+.card {
+    background: #14261c;
+    padding: 15px;
+    margin-top: 15px;
+    border-left: 4px solid #3cff88;
+}
+
+/* Efeito glitch simples */
+.glitch {
+    color: #3cff88;
+    animation: glitch 1s infinite;
+}
+
+@keyframes glitch {
+    0% { text-shadow: 1px 0 red; }
+    25% { text-shadow: -1px 0 blue; }
+    50% { text-shadow: 1px 0 green; }
+    75% { text-shadow: -1px 0 red; }
+    100% { text-shadow: 1px 0 blue; }
+}
+
+/* Rodapé */
+footer {
+    text-align: center;
+    padding: 15px;
+    background: #000;
+    margin-top: 20px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1 class="glitch">🌱 Agro Perdido 👻</h1>
+    <p>Arquivos rurais esquecidos pelo tempo</p>
+</header>
+
+<nav>
+    <a href="#sobre">Sobre</a>
+    <a href="#arquivos">Arquivos Perdidos</a>
+    <a href="#contato">Contato</a>
+</nav>
+
+<section id="sobre">
+    <h2>🌾 Sobre o Projeto</h2>
+    <p>
+        Este site reúne relatos, vídeos antigos e histórias esquecidas do meio rural brasileiro.
+        Conteúdos que existiram, mas desapareceram — transmissões perdidas, comerciais antigos,
+        programas agrícolas que nunca mais foram vistos.
+    </p>
+</section>
+
+<section id="arquivos">
+    <h2>📼 Arquivos Perdidos</h2>
+
+    <div class="card">
+        <h3>🚜 Programa Rural (1998)</h3>
+        <p>Um programa exibido em emissora local com dicas agrícolas… apenas um trecho foi recuperado.</p>
+    </div>
+
+    <div class="card">
+        <h3>🌽 Comercial Misterioso</h3>
+        <p>Relatos indicam um comercial de sementes com imagens estranhas exibido na madrugada.</p>
+    </div>
+
+    <div class="card">
+        <h3>📻 Rádio Fazenda</h3>
+        <p>Uma transmissão rural dos anos 90 captada com ruídos e vozes desconhecidas…</p>
+    </div>
+</section>
+
+<section id="contato">
+    <h2>📡 Enviar Relato</h2>
+    <p>Você tem registros ou lembra de algo perdido? Entre em contato:</p>
+    <p>Email: agroperdido@email.com</p>
+</section>
+
+<footer>
+    <p>© 2026 Agro Perdido | Arquivos nunca esquecidos...</p>
+</footer>
+
+</body>
+</html>
