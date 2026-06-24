@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fita VHS Interativa</title>
+<title>ARQUIVO VHS CORROMPIDO</title>
 
 <style>
 body {
+    margin: 0;
     background: black;
     color: #00ff88;
     font-family: "Courier New", monospace;
-    margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,106 +18,209 @@ body {
 }
 
 /* Tela VHS */
-#player {
-    width: 700px;
-    height: 400px;
-    background: #111;
-    border: 4px solid #00ff88;
+#game {
+    width: 750px;
+    height: 420px;
+    background: #000;
+    border: 3px solid #00ff88;
     padding: 20px;
     position: relative;
-    box-shadow: 0 0 20px #00ff88;
+    overflow: hidden;
 }
 
-/* Efeito ruído */
-#player::after {
+/* Scanlines */
+#game::after {
     content: "";
     position: absolute;
     width: 100%;
     height: 100%;
     background: repeating-linear-gradient(
-        rgba(255,255,255,0.03) 0px,
-        rgba(255,255,255,0.03) 1px,
-        transparent 1px,
-        transparent 2px
+        transparent,
+        rgba(255,255,255,0.05) 2px
     );
     pointer-events: none;
 }
 
-/* Conteúdo */
-#conteudo {
-    font-size: 18px;
+/* Glitch tela */
+.glitch {
+    animation: glitch 0.2s infinite;
+}
+
+@keyframes glitch {
+    0% { transform: translate(2px, 0); }
+    50% { transform: translate(-2px, 0); }
+    100% { transform: translate(0, 0); }
+}
+
+/* Texto */
+#texto {
+    white-space: pre-line;
     min-height: 200px;
 }
 
-/* Botão */
+/* Botões */
 button {
+    display: block;
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
     background: #00ff88;
     border: none;
-    padding: 10px 20px;
     cursor: pointer;
-    margin-top: 20px;
-    font-weight: bold;
 }
 
 button:hover {
     background: #00cc66;
 }
 
-/* Rodapé VHS */
-.vhs-info {
+/* Tela piscando */
+.flash {
+    animation: flash 0.1s;
+}
+
+@keyframes flash {
+    0% { background: white; }
+    100% { background: black; }
+}
+
+.info {
     position: absolute;
     bottom: 10px;
     right: 10px;
     font-size: 12px;
-    color: #00ff88;
 }
 </style>
 </head>
 
 <body>
 
-<div id="player">
-
-    <div id="conteudo">
-        <!-- Conteúdo muda aqui -->
-    </div>
-
-    <button onclick="proximo()">▶ Próximo Assunto</button>
-
-    <div class="vhs-info">PLAY ► REC 1997</div>
-
+<div id="game">
+    <div id="texto"></div>
+    <div id="opcoes"></div>
+    <div class="info">PLAY ► REC ◼ 1997</div>
 </div>
 
 <script>
 
-/* Lista de "quadros" do filme */
-const cenas = [
-    "🌱 [Fita 01] Registro agrícola não catalogado... Um trator foi visto operando sozinho às 03:12 da manhã.",
-    
-    "📼 [Fita 02] Comercial de sementes transmitido apenas uma vez em 1998... nunca mais encontrado.",
-    
-    "📻 [Fita 03] Rádio rural captada fora de frequência... vozes repetiam coordenadas desconhecidas.",
-    
-    "🌽 [Fita 04] Filmagem de uma plantação onde todas as plantas cresceram em padrão geométrico.",
-    
-    "👁️ [Fita 05] Último registro... operador desapareceu após gravar esta fita."
-];
+const historia = {
+    inicio: {
+        texto: "📼 Carregando fita...\n\nERRO: ARQUIVO CORROMPIDO\n\nDeseja forçar reprodução?",
+        opcoes: [
+            { texto: "▶ FORÇAR", proximo: "fita1" },
+            { texto: "❌ CANCELAR", proximo: "fim" }
+        ]
+    },
 
-let indice = 0;
+    fita1: {
+        texto: "🌱 Imagem: plantação\n\n⚠ interferência detectada...\n\nAlgo está... se movendo no fundo.",
+        opcoes: [
+            { texto: "👁️ Olhar mais de perto", proximo: "olhar" },
+            { texto: "⏩ Avançar fita", proximo: "fita2" }
+        ]
+    },
 
-/* Função para mudar de cena */
-function proximo() {
-    indice++;
+    olhar: {
+        texto: "👁️ Você pausou a fita.\n\nAlgo aparece entre os milhos.\n\nNão é humano.",
+        opcoes: [
+            { texto: "⚠ CONTINUAR", proximo: "fita2" }
+        ]
+    },
 
-    if (indice >= cenas.length) {
-        indice = 0;
+    fita2: {
+        texto: "🚜 Trator ligado sozinho.\n\nÁudio distorcido:\n\n'Vo...cê...voltou...'",
+        opcoes: [
+            { texto: "📻 Aumentar volume", proximo: "mensagem" },
+            { texto: "⏹ Parar fita", proximo: "fim" }
+        ]
+    },
+
+    mensagem: {
+        texto: "📻 VOZ:\n\n'NÃO ERA PRA VOCÊ VER.'",
+        opcoes: [
+            { texto: "▶ Continuar", proximo: "final" }
+        ]
+    },
+
+    final: {
+        texto: "⚠ SINAL PERDIDO\n\n[ERRO]\n\nELE\nESTÁ\nFORA\nDA\nFITA",
+        opcoes: [
+            { texto: "🔁 Reiniciar", proximo: "inicio" }
+        ]
+    },
+
+    fim: {
+        texto: "❌ Reprodução encerrada.\n\n...\n\n(Algo continua rodando em segundo plano)",
+        opcoes: [
+            { texto: "🔁 Voltar", proximo: "inicio" }
+        ]
     }
+};
 
-    document.getElementById("conteudo").innerText = cenas[indice];
+let atual = "inicio";
+
+/* Escrever texto simulando gravação */
+function escreverTexto(texto, elemento, velocidade = 30) {
+    elemento.innerText = "";
+    let i = 0;
+
+    const intervalo = setInterval(() => {
+        elemento.innerText += texto[i];
+        i++;
+
+        if (i >= texto.length) clearInterval(intervalo);
+
+        /* glitch aleatório */
+        if (Math.random() < 0.05) {
+            document.getElementById("game").classList.add("glitch");
+            setTimeout(() => {
+                document.getElementById("game").classList.remove("glitch");
+            }, 100);
+        }
+
+    }, velocidade);
 }
 
-/* Iniciar com primeira cena */
-document.getElementById("conteudo").innerText = cenas[0];
+/* Mostrar cena */
+function mostrarCena(cena) {
+    const dados = historia[cena];
+    const textoEl = document.getElementById("texto");
+    const opcoesEl = document.getElementById("opcoes");
+
+    escreverTexto(dados.texto, textoEl);
+
+    opcoesEl.innerHTML = "";
+
+    dados.opcoes.forEach(op => {
+        const btn = document.createElement("button");
+        btn.innerText = op.texto;
+
+        btn.onclick = () => {
+            efeitoFlash();
+            atual = op.proximo;
+            setTimeout(() => mostrarCena(atual), 200);
+        };
+
+        opcoesEl.appendChild(btn);
+    });
+
+    /* evento aleatório assustador */
+    if (Math.random() < 0.2) {
+        setTimeout(() => {
+            textoEl.innerText += "\n\n⚠ INTERFERÊNCIA...";
+        }, 1500);
+    }
+}
+
+/* efeito de piscada */
+function efeitoFlash() {
+    document.getElementById("game").classList.add("flash");
+    setTimeout(() => {
+        document.getElementById("game").classList.remove("flash");
+    }, 100);
+}
+
+/* inicia */
+mostrarCena(atual);
 
 </script>
 
