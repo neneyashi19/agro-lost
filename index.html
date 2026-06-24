@@ -3,139 +3,123 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Agro Perdido</title>
+<title>Fita VHS Interativa</title>
 
 <style>
 body {
-    margin: 0;
+    background: black;
+    color: #00ff88;
     font-family: "Courier New", monospace;
-    background-color: #0f1a14;
-    color: #d4ffd4;
-}
-
-/* Cabeçalho */
-header {
-    background: linear-gradient(#1f3d2b, #000);
-    padding: 20px;
-    text-align: center;
-    border-bottom: 2px solid #3cff88;
-}
-
-header h1 {
     margin: 0;
-    font-size: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-/* Menu */
-nav {
-    background-color: #13251b;
-    padding: 10px;
-    text-align: center;
+/* Tela VHS */
+#player {
+    width: 700px;
+    height: 400px;
+    background: #111;
+    border: 4px solid #00ff88;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 0 20px #00ff88;
 }
 
-nav a {
-    color: #8affb7;
-    margin: 0 15px;
-    text-decoration: none;
-}
-
-nav a:hover {
-    color: #3cff88;
+/* Efeito ruído */
+#player::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        rgba(255,255,255,0.03) 0px,
+        rgba(255,255,255,0.03) 1px,
+        transparent 1px,
+        transparent 2px
+    );
+    pointer-events: none;
 }
 
 /* Conteúdo */
-section {
-    max-width: 900px;
-    margin: 20px auto;
-    padding: 20px;
-    background: rgba(0,0,0,0.6);
-    border: 1px solid #3cff88;
-    border-radius: 10px;
+#conteudo {
+    font-size: 18px;
+    min-height: 200px;
 }
 
-/* Cards */
-.card {
-    background: #14261c;
-    padding: 15px;
-    margin-top: 15px;
-    border-left: 4px solid #3cff88;
-}
-
-/* Efeito glitch simples */
-.glitch {
-    color: #3cff88;
-    animation: glitch 1s infinite;
-}
-
-@keyframes glitch {
-    0% { text-shadow: 1px 0 red; }
-    25% { text-shadow: -1px 0 blue; }
-    50% { text-shadow: 1px 0 green; }
-    75% { text-shadow: -1px 0 red; }
-    100% { text-shadow: 1px 0 blue; }
-}
-
-/* Rodapé */
-footer {
-    text-align: center;
-    padding: 15px;
-    background: #000;
+/* Botão */
+button {
+    background: #00ff88;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
     margin-top: 20px;
+    font-weight: bold;
 }
 
+button:hover {
+    background: #00cc66;
+}
+
+/* Rodapé VHS */
+.vhs-info {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 12px;
+    color: #00ff88;
+}
 </style>
 </head>
 
 <body>
 
-<header>
-    <h1 class="glitch">🌱 Agro Perdido 👻</h1>
-    <p>Arquivos rurais esquecidos pelo tempo</p>
-</header>
+<div id="player">
 
-<nav>
-    <a href="#sobre">Sobre</a>
-    <a href="#arquivos">Arquivos Perdidos</a>
-    <a href="#contato">Contato</a>
-</nav>
-
-<section id="sobre">
-    <h2>🌾 Sobre o Projeto</h2>
-    <p>
-        Este site reúne relatos, vídeos antigos e histórias esquecidas do meio rural brasileiro.
-        Conteúdos que existiram, mas desapareceram — transmissões perdidas, comerciais antigos,
-        programas agrícolas que nunca mais foram vistos.
-    </p>
-</section>
-
-<section id="arquivos">
-    <h2>📼 Arquivos Perdidos</h2>
-
-    <div class="card">
-        <h3>🚜 Programa Rural (1998)</h3>
-        <p>Um programa exibido em emissora local com dicas agrícolas… apenas um trecho foi recuperado.</p>
+    <div id="conteudo">
+        <!-- Conteúdo muda aqui -->
     </div>
 
-    <div class="card">
-        <h3>🌽 Comercial Misterioso</h3>
-        <p>Relatos indicam um comercial de sementes com imagens estranhas exibido na madrugada.</p>
-    </div>
+    <button onclick="proximo()">▶ Próximo Assunto</button>
 
-    <div class="card">
-        <h3>📻 Rádio Fazenda</h3>
-        <p>Uma transmissão rural dos anos 90 captada com ruídos e vozes desconhecidas…</p>
-    </div>
-</section>
+    <div class="vhs-info">PLAY ► REC 1997</div>
 
-<section id="contato">
-    <h2>📡 Enviar Relato</h2>
-    <p>Você tem registros ou lembra de algo perdido? Entre em contato:</p>
-    <p>Email: agroperdido@email.com</p>
-</section>
+</div>
 
-<footer>
-    <p>© 2026 Agro Perdido | Arquivos nunca esquecidos...</p>
-</footer>
+<script>
+
+/* Lista de "quadros" do filme */
+const cenas = [
+    "🌱 [Fita 01] Registro agrícola não catalogado... Um trator foi visto operando sozinho às 03:12 da manhã.",
+    
+    "📼 [Fita 02] Comercial de sementes transmitido apenas uma vez em 1998... nunca mais encontrado.",
+    
+    "📻 [Fita 03] Rádio rural captada fora de frequência... vozes repetiam coordenadas desconhecidas.",
+    
+    "🌽 [Fita 04] Filmagem de uma plantação onde todas as plantas cresceram em padrão geométrico.",
+    
+    "👁️ [Fita 05] Último registro... operador desapareceu após gravar esta fita."
+];
+
+let indice = 0;
+
+/* Função para mudar de cena */
+function proximo() {
+    indice++;
+
+    if (indice >= cenas.length) {
+        indice = 0;
+    }
+
+    document.getElementById("conteudo").innerText = cenas[indice];
+}
+
+/* Iniciar com primeira cena */
+document.getElementById("conteudo").innerText = cenas[0];
+
+</script>
 
 </body>
 </html>
